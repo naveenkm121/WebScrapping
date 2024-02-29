@@ -63,11 +63,8 @@ for i in range(2,10):
         reviewsList.append(review) 
 
 dataframe=pd.DataFrame({"title":productNameList,"description":descriptionList,"price":pricesList,"discount_per":discountPercList,"rating":reviewsList,"thumbnail":imagesList})
-    #print(dataframe)
-dataframe.to_csv("D:/PythonWorkSpace/flipkartData.csv")
-
- #   nextPage=soup.find("a",class_="_1LKTO3").get("href")
-  #  fullNextPageUrl=baseUrl+nextPage
-   # print(fullNextPageUrl)
-
+#print(dataframe)
+dataframe.to_json("Flipkart.json")
+#dataframe.to_csv("D:/PythonWorkSpace/flipkartData.csv")
+#dataframe.to_json("flipkart_data.json")
 
