@@ -9,6 +9,7 @@ discountPercList=[]
 pricesList=[]
 descriptionList=[]
 reviewsList=[]
+productLinks=[]
 
 baseUrl="https://www.flipkart.com"
 
@@ -62,9 +63,15 @@ for i in range(2,10):
         review=i.text
         reviewsList.append(review) 
 
-dataframe=pd.DataFrame({"title":productNameList,"description":descriptionList,"price":pricesList,"discount_per":discountPercList,"rating":reviewsList,"thumbnail":imagesList})
-print(dataframe)
-#dataframe.to_json("Flipkart.json")
+    links=productsCardBox.find_all("a",class_="_1fQZEK")
+    for i in links:
+        review_link = i['href']
+        productLinks.append(baseUrl+review_link)
+    #print(productLinks)    
+
+dataframe=pd.DataFrame({"title":productNameList,"description":descriptionList,"price":pricesList,"discount_per":discountPercList,"rating":reviewsList,"thumbnail":imagesList,"link":productLinks})
+#print(dataframe)
+dataframe.to_csv("Flipkart.csv")
 #dataframe.to_csv("D:/PythonWorkSpace/flipkartData.csv")
 #dataframe.to_json("flipkart_data.json")
 
