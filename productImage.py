@@ -1,36 +1,18 @@
-import csv
+import pandas as pd
 import pandas as pd
 import requests as req
 import re
 from bs4 import BeautifulSoup
 
-productLink=[]
-images=[]
-# Open the CSV file
-with open('Flipkart.csv', newline='') as csvfile:
-    # Create a CSV reader object
-    csvreader = csv.reader(csvfile)
-    
-    # Skip the header row
-    next(csvreader)
-    
-    # Iterate over each row in the CSV file
-    for row in csvreader:
-        # Each row is a list containing the values of the cells
-        # Do something with the row data, for example, print it
-        # print(row)
-        productLink.append(row[-1])
-    
-    #print(productLink)
-for link in productLink:
-    #testurl="https://www.flipkart.com/search?q=mobile+&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off&page=2"
-    res= req.get(link)
-    soup=BeautifulSoup(res.text,"html.parser")
-    #productsCardBox=soup.find("div",class_="_1YokD2 _3Mn1Gg")
+productImages=[]
+testurl="https://www.flipkart.com/motorola-g54-5g-mint-green-128-gb/p/itmfc12683043bbc?pid=MOBGQFX8Z3ZCDZZ7&lid=LSTMOBGQFX8Z3ZCDZZ7FOOELB&marketplace=FLIPKART&q=mobile+&store=tyy%2F4io&srno=s_2_25&otracker=search&otracker1=search&iid=61778787-0253-4756-a0aa-4ceba052f943.MOBGQFX8Z3ZCDZZ7.SEARCH&ssid=98o6ozn18g0000001709919350131&qH=179b063c26bcaa74";
+res= req.get(testurl)
+print(res)
+soup=BeautifulSoup(res.text,"html.parser")
+productName=soup.find("span",class_="B_NuCI")
+images=soup.find_all("img",class_="q6DClP")
+#print(images)
+for image in images:
+    productImages.append(image["src"])
 
-    # Products Name
-    prodNames=soup.find_all("ul",class_="_3GnUWp")
-    for i in prodNames:
-        name=i.find("img",class_="q6DClP").get('src')
-        images.append(name)
-    print(images)
+print(productImages)
